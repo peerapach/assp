@@ -1,0 +1,46 @@
+version: '3.2'
+services:
+  assp:
+    image: peerapach/assp:2.8.1_23131
+    restart: unless-stopped
+    container_name: assp
+    environment:
+      TZ: Asia/Bangkok
+    network_mode: host
+    volumes:
+      - /opt/assp/assp.cfg:/opt/assp/assp.cfg
+      - /opt/assp/assp.cfg.bak:/opt/assp/assp.cfg.bak
+      - /opt/assp/certs/:/opt/assp/certs/
+      - /opt/assp/logs/:/opt/assp/logs/
+      - /opt/assp/tmpDB/:/opt/assp/tmpDB/
+      - /opt/assp/virus/:/opt/assp/virus/
+      - /opt/assp/virusscan/:/opt/assp/virusscan/
+      - /opt/assp/sl-cache/:/opt/assp/sl-cache/
+      - /opt/assp/spam/:/opt/assp/spam/
+      - /opt/assp/notspam/:/opt/assp/notspam/
+      - /opt/assp/okmail/:/opt/assp/okmail/
+      - /opt/assp/discarded/:/opt/assp/discarded/
+      - /opt/assp/quarantine/:/opt/assp/quarantine/
+      - /opt/assp//errors/:/opt/assp/errors/
+      - /opt/assp/pb/:/opt/assp/pb/
+      - /opt/assp/mysql/:/opt/assp/mysql/
+      - mysql_sock:/run/mysqld
+
+  assp_db: 
+    image: docker.io/mariadb:11.1.2
+    restart: unless-stopped
+    container_name: assp_db
+    volumes: 
+      - /opt/assp_db:/var/lib/mysql:rw
+      - mysql_sock:/var/run/mysqld
+    environment: 
+      MYSQL_DATABASE: assp
+      MYSQL_USER: assp
+      MYSQL_PASSWORD: WelC@1 
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      TZ: Asia/Bangkok
+    ports: 
+      - "3306:3306"
+
+volumes:
+  mysql_sock:
