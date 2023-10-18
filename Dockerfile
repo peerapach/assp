@@ -44,7 +44,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
 COPY --from=build /usr/local/lib/perl5 /usr/local/lib/perl5
 COPY --from=build /opt/assp /opt/assp
 
-COPY files /opt/assp/files
+#COPY files /opt/assp/files
 COPY assp.cfg /opt/assp/
 RUN chown -R nobody:nogroup /opt/assp
 
