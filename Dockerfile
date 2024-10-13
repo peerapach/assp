@@ -1,7 +1,7 @@
 ## BUILD
 FROM perl:5.34.1-threaded AS build
 
-ARG ASSP_VERSION="2.8.1 23131"
+ARG ASSP_VERSION="2.8.1 24261"
 
 RUN mkdir -p /opt/assp/tmpDB/files
 
